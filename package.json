@@ -1,0 +1,45 @@
+{
+  "title": "node-blog",
+  "name": "vntalking-clean-blog",
+  "version": "5.0.8",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "description": "Blog Server",
+  "keywords": [
+    "css",
+    "sass",
+    "html",
+    "responsive",
+    "theme",
+    "template"
+  ],
+  "license": "MIT",
+  "author": "IvanPolka",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BlackrockDigital/startbootstrap-clean-blog.git"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "5.10.2",
+    "bootstrap": "4.3.1",
+    "ejs": "^3.0.1",
+    "express": "^4.17.1",
+    "jquery": "3.4.1"
+  },
+  "devDependencies": {
+    "browser-sync": "2.26.7",
+    "del": "5.1.0",
+    "gulp": "4.0.2",
+    "gulp-autoprefixer": "7.0.0",
+    "gulp-clean-css": "4.2.0",
+    "gulp-header": "2.0.9",
+    "gulp-plumber": "^1.2.1",
+    "gulp-rename": "1.4.0",
+    "gulp-sass": "4.0.2",
+    "gulp-uglify": "3.0.2",
+    "merge-stream": "2.0.0",
+    "nodemon": "^2.0.2"
+  },
+  "main": "gulpfile.js"
+}
