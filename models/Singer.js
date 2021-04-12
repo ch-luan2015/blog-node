@@ -5,6 +5,12 @@ const Schema = mongoose.Schema;
 const SingerSchema = new Schema({
     name: String,
     song: String,
+    author: String,
+    datePosted: {
+        type: Date,
+        default: new Date(),
+
+    }
 })
 
 //Tạo model cho kiểu : tên model và dạng types của nó

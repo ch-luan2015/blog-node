@@ -20,12 +20,15 @@ app.set('view engine', 'ejs')
 
 app.use(express.static('public'))
 
-app.get("/posts/new", (req, res) => {
+app.get("/create", (req, res) => {
     res.render("create")
 })
+
 app.post('/posts/store', (req, res) => {
-    console.log(req.body)
-    Singer.create(req.body, (e, singer) => {
+
+    var singer = { ...req.body, "author": "NCL", }
+
+    Singer.create(singer, (e, singer) => {
         res.redirect('/')
 
     })

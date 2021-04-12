@@ -29,6 +29,12 @@
               <h3 class="post-subtitle"><%= SingerCollection[i].name %></h3>
             </a>
           </div>
+
+          <p class="post-meta">
+            Posted by
+            <a href="#"><%= SingerCollection[i].author %></a>
+            on <%= SingerCollection[i].datePosted.toDateString() %>
+          </p>
           <hr />
           <% } %>
           <!-- Pager -->
