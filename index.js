@@ -10,10 +10,20 @@ app.use(bodyParser.raw());
 
 const BlogPost = require("./models/BlogPost")
 const Singer = require("./models/Singer")
+const UsList = require("./models/UsList")
+
+
 
 //Connect DataBase
 const mongoose = require("mongoose");
-mongoose.connect('mongodb://localhost/SingerDB', { useNewUrlParser: true, useUnifiedTopology: true })
+const mongoDB = 'mongodb://localhost/SingerDB';
+
+mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true })
+//Ép Mongoose sử dụng thư viện promise toàn cục
+mongoose.Promise = global.Promise;
+//Lấy kết nối mặc định
+
+
 
 
 app.set('view engine', 'ejs')
@@ -37,15 +47,25 @@ app.post('/posts/store', (req, res) => {
 
 //fetch data from database : use find({},()=>}|)
 
-app.get('/', async (request, res) => {
+app.get('/', async (req, res) => {
     const SingerCollection = await Singer.find({});
     res.render('index', {
         SingerCollection: SingerCollection
     });
 })
 
+
 app.get('/about', (req, res) => {
-    res.render('about');
+
+    var usListNew = UsList.find({}, "name", function (e, data) { }).then((data) => {
+        console.log("res then", data)
+        return data
+
+    }).catch((e) => console.log(e));
+
+    res.render('about', {
+        us: usListNew
+    });
 })
 app.get('/contact', (req, res) => {
     res.render('contact');
