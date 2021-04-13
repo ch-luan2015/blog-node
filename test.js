@@ -24,8 +24,7 @@ async function findListings(client, resultsLimit) {
 
 async function main() {
     const MongoClient = require('mongodb').MongoClient;
-    const uri1 =
-        "mongodb+srv://ivanpolka:lucifer147@cluster0.5k9d4.mongodb.net/sample_airbnb?retryWrites=true&w=majority";
+    const uri1 = "mongodb+srv://ivanpolka:lucifer147@cluster0.5k9d4.mongodb.net/sample_airbnb?retryWrites=true&w=majority";
     const uri2 = "mongodb+srv://Polka:lucifer147@cluster0.ljn9n.gcp.mongodb.net/IdolDB?retryWrites=true&w=majority";
     const client1 = new MongoClient(uri1, { useNewUrlParser: true });
 
@@ -33,7 +32,28 @@ async function main() {
     // Connect to the client and query
     await client1.connect();
     await client2.connect();
-    findListings(client2, 5);
+
+
+    const cursor = client2
+        .db('IdolDB')
+        .collection('rom2')
+        .find()
+        .limit(5);
+
+    const results = await cursor.toArray();
+    if (results.length > 0) {
+        results.forEach((result, i) => {
+            date = new Date(result.last_review).toDateString();
+
+            console.log();
+            console.log(`${i + 1}. name: ${result.name}`);
+            console.log(`   _id: ${result._id}`);
+            console.log(result.images[i])
+
+        });
+    }
+
+    // findListings(client2, 5);
     client1.close();
     client2.close();
 }
