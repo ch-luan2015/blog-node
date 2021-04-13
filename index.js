@@ -24,6 +24,14 @@ mongoose.Promise = global.Promise;
 //Lấy kết nối mặc định
 
 
+const MongoClient = require('mongodb').MongoClient;
+const uri = "mongodb+srv://Polka:lucifer147@cluster0.ljn9n.gcp.mongodb.net/IdolDB?retryWrites=true&w=majority";
+const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+// client.connect(err => {
+//     const collection = client.db("test").collection("rom1");
+//     client.close();
+// });
+
 
 
 app.set('view engine', 'ejs')
@@ -58,7 +66,6 @@ app.get('/', async (req, res) => {
 app.get('/about', (req, res) => {
 
     var usListNew = UsList.find({}, "name", function (e, data) { }).then((data) => {
-        console.log("res then", data)
         return data
 
     }).catch((e) => console.log(e));
