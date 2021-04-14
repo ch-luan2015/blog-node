@@ -10,7 +10,8 @@ const SingerSchema = new Schema({
         type: Date,
         default: new Date(),
 
-    }
+    },
+    image: String,
 })
 
 //Tạo model cho kiểu : tên model và dạng types của nó

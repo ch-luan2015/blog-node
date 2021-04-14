@@ -20,9 +20,13 @@
 
     <!-- Main Content -->
     <div class="container">
+      <% for (var i = 0; i < SingerCollection.length; i++) { %> <% console.log("SingerCollection",SingerCollection) %>
       <div class="row">
-        <div class="col-lg-8 col-md-10 mx-auto">
-          <% for (var i = 0; i < SingerCollection.length; i++) { %>
+        <div class="col-lg-4 col-md-5 mx-auto">
+          <img style="display: block; height: 200px" class="img-thumbnail rounded" alt="" src="<%= SingerCollection[i].image %>" />
+        </div>
+
+        <div class="col-lg-8 col-md-5 mx-auto">
           <div class="post-preview">
             <a href="/post/<%= SingerCollection[i]._id %>">
               <h2 class="post-title"><%= SingerCollection[i].song %></h2>
@@ -36,12 +40,12 @@
             on <%= SingerCollection[i].datePosted.toDateString() %>
           </p>
           <hr />
-          <% } %>
-          <!-- Pager -->
-          <div class="clearfix">
-            <a class="btn btn-primary float-right" href="#">Older Posts &rarr;</a>
-          </div>
         </div>
+      </div>
+      <% } %>
+      <!-- Pager -->
+      <div class="clearfix">
+        <a class="btn btn-primary float-right" href="#">Older Posts &rarr;</a>
       </div>
     </div>
 
