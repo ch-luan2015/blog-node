@@ -17,14 +17,18 @@
       </div>
     </header>
 
-    <!-- Main Content -->
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-8 col-md-10 mx-auto"><% us!==null && console.log("us about",us) %></div>
-      </div>
+    <% for (var i = 0; i < idols.length; i++) { %>
+    <div class="post-preview">
+      <a href="/post/<%= idols[i]._id %>">
+        <h2 class="post-title"><%= idols[i].name %></h2>
+      </a>
     </div>
-
+    <div><% var {images} = idols[i] %> <% console.log(images) %> <img style="display: block; height: 150px" class="img-thumbnail rounded" alt="<%= idols[i].name %>" src="<%= images[0].thumbnail %>" /></div>
+    <% } %>
     <hr />
+
+    <!-- Main Content -->
+
     <%- include('layouts/footer'); -%> <%- include('layouts/scripts'); -%>
   </body>
 </html>

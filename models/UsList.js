@@ -10,7 +10,7 @@ const UsListSchema = new Schema({
     images: []
 })
 
-const UsList = mongoose.model("uslists", UsListSchema);
+const UsList = mongoose.model("us", UsListSchema);
 
 
 module.exports = UsList;
