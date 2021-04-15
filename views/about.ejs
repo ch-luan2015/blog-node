@@ -17,16 +17,42 @@
       </div>
     </header>
 
-    <% for (var i = 0; i < idols.length; i++) { %>
-    <div class="post-preview">
-      <a href="/post/<%= idols[i]._id %>">
-        <h2 class="post-title"><%= idols[i].name %></h2>
-      </a>
-    </div>
-    <div><% var {images} = idols[i] %> <% console.log(images) %> <img style="display: block; height: 150px" class="img-thumbnail rounded" alt="<%= idols[i].name %>" src="<%= images[0].thumbnail %>" /></div>
-    <% } %>
-    <hr />
+    <div class="container d-flex flex-row flex-wrap justify-content-around">
+      <div class="row w-100"><h1>Japan Idols</h1></div>
+      <div class="row w-100 d-flex flex-row flex-wrap justify-content-between">
+        <% IdolsData.map((idol)=>{ %>
+        <div class="post-preview w=25 m-3">
+          <a href="/post/<%= idol._id %>">
+            <div class="d-flex flex-column flex-nowrap align-items-center justify-content-center">
+              <div>
+                <img style="display: block; height: 200px" class="img-thumbnail rounded" alt="<%= idol.name %>" src="<%= idol.images[1].thumbnail %>" />
+              </div>
+              <h5 class="post-title"><%= idol.name %></h5>
+            </div>
+          </a>
+        </div>
+        <hr />
+        <% }) %>
+      </div>
 
+      <div class="row w-100"><h1>Us Star</h1></div>
+
+      <div class="row w-100 d-flex flex-row flex-wrap justify-content-around">
+        <% StarData.map((idol)=>{ %>
+        <div class="post-preview w-25">
+          <a href="/post/<%= idol._id %>">
+            <div class="d-flex flex-column flex-nowrap align-items-center justify-content-center">
+              <div>
+                <img style="display: block; height: 200px" class="img-thumbnail rounded" alt="<%= idol.name %>" src="<%= idol.images[1].thumbnail %>" />
+              </div>
+              <h5 class="post-title"><%= idol.name %></h5>
+            </div>
+          </a>
+        </div>
+        <hr />
+        <% }) %>
+      </div>
+    </div>
     <!-- Main Content -->
 
     <%- include('layouts/footer'); -%> <%- include('layouts/scripts'); -%>

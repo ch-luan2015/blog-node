@@ -5,6 +5,7 @@ const fileUpload = require('express-fileupload')
 const BlogPost = require("./models/BlogPost")
 const Singer = require("./models/Singer")
 const UsList = require("./models/UsList")
+const Idols = require("./models/JavList")
 const bodyParser = require("body-parser")
 const path = require('path');
 
@@ -41,14 +42,27 @@ app.get('/', async (req, res) => {
     });
 })
 
-app.get('/about', (req, res) => {
-    UsList.find({}).limit(5).exec(function (err, idols) {
-        if (err) throw err;
-        res.render('about', {
-            idols,
-        });
-    });
+app.get('/about', async (req, res) => {
 
+    const fetchIdols = async () => {
+        let temp = await Idols.find({}).exec()
+        return temp;
+    }
+
+    var IdolsData = await fetchIdols();
+
+    const fetchStar = async () => {
+        let temp = await UsList.find({}).exec();
+        return temp;
+    }
+
+    var StarData = await fetchStar();
+
+
+    res.render('about', {
+        IdolsData, StarData
+
+    });
 })
 app.get('/contact', (req, res) => {
     res.render('contact');
