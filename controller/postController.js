@@ -12,7 +12,10 @@ const validMiddleWare = (req, res, next) => {
 
 
 const createPost = (req, res) => {
-    res.render("create")
+    if (req.session.userId) {
+        return res.render("create");
+    }
+    res.redirect("/login")
 }
 
 const postStore = (req, res) => {

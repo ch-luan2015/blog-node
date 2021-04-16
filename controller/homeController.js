@@ -8,12 +8,12 @@ mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true }).then(
 
 
 const renderHome = (req, res) => {
+    console.log("req.session", req.session)
 
     const getSingerList = async () => {
         let SingerMongo = await Singer.find({});
         return SingerMongo;
     }
-
 
     getSingerList()
         .then(result => { return result })
