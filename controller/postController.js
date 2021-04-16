@@ -1,12 +1,11 @@
 const Singer = require("../models/Singer")
 
-const express = require('express')
 const path = require('path');
 
 
 const validMiddleWare = (req, res, next) => {
     if (req.files === null || req.body.title === "") {
-        return res.redirect("/create")
+        res.redirect("/create")
     }
     next();
 }

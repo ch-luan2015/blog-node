@@ -19,7 +19,6 @@ const renderHome = (req, res) => {
         .then(result => { return result })
         .then(result => {
             let db = [...result];
-            console.log("db", db)
             res.render('index', {
                 SingerCollection: db
             })

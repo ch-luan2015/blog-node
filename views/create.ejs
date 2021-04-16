@@ -23,18 +23,20 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
-          <!-- for browser to know tha tthe form contains mutli media. will encripy multie media and send to server -->
-          <form action="/posts/store" method="POST" enctype="multipart/form-data">
+
+          
+          <form action="/posts/store" method="post" enctype="multipart/form-data">
             <div class="control-group">
               <div class="form-group floating-label-form-group controls">
                 <label>Name</label>
                 <input type="text" class="form-control" placeholder="Name" id="name" name="name" />
               </div>
             </div>
+
             <div class="control-group">
               <div class="form-group floating-label-form-group controls">
                 <label>Song</label>
-                <textarea rows="5" class="form-control" placeholder="Song" id="song" name="song"></textarea>
+                <input class="form-control" placeholder="Song" id="song" name="song"></input>
               </div>
             </div>
             <br />
@@ -48,7 +50,7 @@
             </div>
             <br />
             <div class="form-group">
-              <button type="submit" class="btn btn-primary" id="sendMessageButton">Send</button>
+              <button type="submit" class="btn btn-primary" id="create">Create</button>
             </div>
           </form>
         </div>

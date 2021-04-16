@@ -2,43 +2,48 @@ const express = require('express')
 const app = new express()
 const ejs = require('ejs')
 const fileUpload = require('express-fileupload')
-const BlogPost = require("./models/BlogPost")
-const UsList = require("./models/UsList")
-const Idols = require("./models/JavList")
+
 const bodyParser = require("body-parser")
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.raw());
 app.use(fileUpload())
-
-const { renderHome } = require("./controller/homeController")
-
-const { createPost, validMiddleWare, postStore } = require("./controller/postController")
-const contact = require("./controller/contactController")
-
 //Connect DataBase
 const mongoose = require('mongoose');
 const uri = 'mongodb://localhost/IdolDB';
 
-mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true }).then(() => console.log("ok connect")).catch((e) => console.log(e))
+mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
+    .then(() => console.log("ok connect"))
+    .catch((e) => console.log(e))
+
+//View
+const { renderHome } = require("./controller/homeController")
+const { renderAbout } = require("./controller/aboutController")
+const { createPost, postStore } = require("./controller/postController")
+const { renderRegister, userStore } = require("./controller/registerController")
+
 
 app.set('view engine', 'ejs')
-
 app.use(express.static('public'))
 
 
 
+//API
 app.get("/", renderHome);
 
 
-app.get("/create", createPost)
+//Post
+app.get("/create", createPost);
+app.post("/posts/store", postStore);
 
-// app.use(validMiddleWare)
-// app.post("/posts/store", validMiddleWare)
-app.post("/posts/store", postStore)
+//User
+app.get("/register", renderRegister);
 
-app.get("/contact", contact)
+app.post("/users/store", userStore);
+
+
+app.get("/about", renderAbout);
 
 
 app.listen(3000, () => { })

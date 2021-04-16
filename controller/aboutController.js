@@ -1,22 +1,34 @@
-app.get('/about', async (req, res) => {
+const JavList = require("../models/JavList")
+const UsList = require("../models/UsList")
 
-    const fetchIdols = async () => {
-        let temp = await Idols.find({}).exec()
-        return temp;
-    }
+const mongoose = require('mongoose');
+const uri = 'mongodb://localhost/IdolDB';
 
-    var IdolsData = await fetchIdols();
+mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
+    .then(() => console.log("ok about"))
+    .catch((e) => console.log(e))
 
-    const fetchStar = async () => {
-        let temp = await UsList.find({}).exec();
-        return temp;
-    }
 
-    var StarData = await fetchStar();
+async function getActress() {
 
+    let javList = await JavList.find({}).exec();
+
+    let usList = await UsList.find({}).exec();
+
+    return { javList, usList }
+}
+
+const renderAbout = async (req, res) => {
+
+    let { javList, usList } = await getActress();
 
     res.render('about', {
-        IdolsData, StarData
-
+        StarData: usList,
+        IdolsData: javList
     });
-})
+}
+
+
+module.exports = {
+    renderAbout,
+}
