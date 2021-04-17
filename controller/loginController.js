@@ -12,12 +12,12 @@ const loginUser = (req, res) => {
 
     UsersList.findOne({ username: username }, (e, user) => {
         if (user) {
-            bcrypt.compare(pass, user.pass, (e, user) => {
+            bcrypt.compare(pass, user.pass, (e, same) => {
                 if (same) {
                     req.session.userId = user._id;
-                    console.log(user._id)
-                    res.redirect("/");
+                    res.redirect("/")
                 } else {
+
                     res.redirect("/login")
                 }
             })

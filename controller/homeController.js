@@ -2,13 +2,12 @@ const Singer = require("../models/Singer")
 const mongoose = require('mongoose');
 const uri = 'mongodb://localhost/IdolDB';
 
-mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true }).then(() => console.log("ok home")).catch((e) => console.log(e))
+mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
 
 
 
 const renderHome = (req, res) => {
-    console.log("req.session", req.session)
 
     const getSingerList = async () => {
         let SingerMongo = await Singer.find({});

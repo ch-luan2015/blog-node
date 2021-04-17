@@ -11,7 +11,6 @@ const renderRegister = (req, res) => {
 
 const userStore = (req, res) => {
     var user = req.body;
-    console.log("user", user);
     UsersList.create(user, (e, user) => {
         if (e) return res.redirect("/register");
         res.redirect("/");

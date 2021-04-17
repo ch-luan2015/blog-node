@@ -4,8 +4,8 @@ const ejs = require('ejs')
 app.set('view engine', 'ejs');
 const fileUpload = require('express-fileupload')
 const expressSession = require('express-session');
+const bodyParser = require("body-parser");
 
-const bodyParser = require("body-parser")
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.raw());
@@ -17,6 +17,7 @@ const { renderAbout } = require("./controller/aboutController")
 const { createPost, postStore } = require("./controller/postController")
 const { renderRegister, userStore } = require("./controller/registerController")
 const { renderLogin, loginUser } = require("./controller/loginController")
+const { logoutUser } = require("./controller/logoutController")
 const { authMiddleware } = require("./middleware/authMiddleware")
 const { redirectIfAuthenticatedMiddleware } = require("./middleware/redirectIfAuthenticatedMiddleware")
 //Connect DataBase
@@ -27,16 +28,20 @@ mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
 
 
 app.use(express.static('public'));
+
 app.use(expressSession({
-    secret: "hello",
+    secret: "hello cat",
     name: "hello",
     proxy: true,
     resave: true,
     saveUninitialized: true
 }));
 
-global.loggedIn = null;
-
+global.loggedIn = null; // Khai bao kieu global
+app.use("*", (req, res, next) => {
+    loggedIn = req.session.userId;
+    next();
+})
 
 //API
 app.get("/", renderHome);
@@ -54,6 +59,7 @@ app.post("/users/store", redirectIfAuthenticatedMiddleware, userStore);
 //Login
 app.get("/login", redirectIfAuthenticatedMiddleware, renderLogin);
 app.post("/login", redirectIfAuthenticatedMiddleware, loginUser);
+app.get("/logout", logoutUser);
 app.get("/about", renderAbout);
 
 

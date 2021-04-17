@@ -5,8 +5,6 @@ const mongoose = require('mongoose');
 const uri = 'mongodb://localhost/IdolDB';
 
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
-    .then(() => console.log("ok about"))
-    .catch((e) => console.log(e))
 
 
 async function getActress() {
