@@ -5,44 +5,52 @@ const path = require('path');
 
 const validMiddleWare = (req, res, next) => {
     if (req.files === null || req.body.title === "") {
-        res.redirect("/create")
+        res.send("You need create again")
     }
     next();
 }
 
 
 const createPost = (req, res) => {
+
     if (req.session.userId) {
-        return res.render("create");
-    }
-    res.redirect("/login")
-}
+        var singer = { ...req.body, "author": "NCL", }
+        // if (req.files.image !== null || req.files.image !== undefined) {
+        //     let image = req.files.image;
+        //     image.mv(path.resolve(__dirname, "../public/upload", image.name), function (err) {
+        //         Singer.create({ ...singer, image: "/upload/" + image.name }, (e, singer) => {
+        //             res.send("Created Post have Image!")
+        //         })
+        //     })
+        // } else {
+        //     Singer.create(singer, (e, singer) => {
+        //         res.send("Created Post not Image!")
+        //     })
+        // };
 
-const postStore = (req, res) => {
-
-    var singer = { ...req.body, "author": "NCL", }
-    let image = req.files.image;
-
-    image.mv(path.resolve(__dirname, "../public/upload", image.name), function (err) {
-        Singer.create({ ...singer, image: "/upload/" + image.name }, (e, singer) => {
-            res.redirect('/')
+        Singer.create(singer, (e, singer) => {
+            res.send("Created Post not Image!")
         })
-    })
+    } else res.send("You not login");
+
 }
 
 
+const getPostById = ((req, res) => {
 
-// app.get('/post/:id', (req, res) => {
-//     Singer.findById(req.params.id, function (error, detailSinger) {
-//         res.render('post', {
-//             detailSinger
-//         })
-//     })
-// })
+    const id = req.params.id;
+
+    console.log("id req", id);
+
+    Singer.findById(id, function (error, detailSinger) {
+        console.log("detailSinger", detailSinger);
+        res.send(detailSinger);
+    })
+})
 
 
 module.exports = {
     createPost,
-    postStore,
+    getPostById,
     validMiddleWare
 }

@@ -14,12 +14,14 @@ app.use(fileUpload())
 //View
 const { getSingerList } = require("./controller/homeController")
 const { getAvList, getUsList } = require("./controller/aboutController")
-const { createPost, postStore } = require("./controller/postController")
+const { createPost, getPostById, postStore } = require("./controller/postController")
 const { renderRegister, userStore } = require("./controller/registerController")
-const { renderLogin, loginUser } = require("./controller/loginController")
+const { loginUser } = require("./controller/loginController")
 const { logoutUser } = require("./controller/logoutController")
 const { authMiddleware } = require("./middleware/authMiddleware")
 const { redirectIfAuthenticatedMiddleware } = require("./middleware/redirectIfAuthenticatedMiddleware")
+const Singer = require("./models/Singer")
+
 //Connect DataBase
 const mongoose = require('mongoose');
 const uri = 'mongodb://localhost/IdolDB';
@@ -52,24 +54,25 @@ app.get("/api/singerlist", getSingerList);
 
 
 //Post
-app.get("/create", authMiddleware, createPost);
-app.post("/posts/store", authMiddleware, postStore);
-
+app.get("/api/post/:id", getPostById)
+app.post("/api/create", createPost);
+//  authMiddleware,
 //User
-app.get("/register", redirectIfAuthenticatedMiddleware, renderRegister);
-app.post("/users/store", redirectIfAuthenticatedMiddleware, userStore);
+app.get("/api/register", redirectIfAuthenticatedMiddleware, renderRegister);
+app.post("/api/users/store", redirectIfAuthenticatedMiddleware, userStore);
 
 
 //Login
-app.get("/login", redirectIfAuthenticatedMiddleware, renderLogin);
-app.post("/login", redirectIfAuthenticatedMiddleware, loginUser);
-app.get("/logout", logoutUser);
-
-//About
+// app.get("/api/login", redirectIfAuthenticatedMiddleware, renderLogin);
+app.post("/api/login", loginUser);
+app.post("/api/logout", logoutUser);
+//redirectIfAuthenticatedMiddleware,
+//List
 app.get("/api/avlist", getAvList);
 app.get("/api/uslist", getUsList);
 
 
-app.use((req, res) => res.render('notfound'));
+app.use((req, res) => res.send('Error , check agagin'));
 
 app.listen(3000, () => console.log('OK. App listening on port 4000'))
+

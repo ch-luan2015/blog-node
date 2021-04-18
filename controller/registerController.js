@@ -12,8 +12,8 @@ const renderRegister = (req, res) => {
 const userStore = (req, res) => {
     var user = req.body;
     UsersList.create(user, (e, user) => {
-        if (e) return res.redirect("/register");
-        res.redirect("/");
+        if (e) return res.send("Error, please check agin");
+        res.send("Created!");
     });
 }
 
