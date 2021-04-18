@@ -7,26 +7,24 @@ const uri = 'mongodb://localhost/IdolDB';
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
 
 
-async function getActress() {
 
-    let javList = await JavList.find({}).exec();
+async function getUsList(req, res) {
 
-    let usList = await UsList.find({}).exec();
+    let uslist = await UsList.find({}).exec();
+    res.send(uslist)
 
-    return { javList, usList }
 }
 
-const renderAbout = async (req, res) => {
+async function getAvList(req, res) {
 
-    let { javList, usList } = await getActress();
+    let avlist = await JavList.find({}).exec();
+    res.send(avlist)
 
-    res.render('about', {
-        StarData: usList,
-        IdolsData: javList
-    });
 }
+
 
 
 module.exports = {
-    renderAbout,
+    getUsList,
+    getAvList
 }

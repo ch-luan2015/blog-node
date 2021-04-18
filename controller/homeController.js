@@ -7,26 +7,19 @@ mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
 
 
-const renderHome = (req, res) => {
+const getSingerList = async (req, res) => {
 
     const getSingerList = async () => {
         let SingerMongo = await Singer.find({});
         return SingerMongo;
     }
 
-    getSingerList()
-        .then(result => { return result })
-        .then(result => {
-            let db = [...result];
-            res.render('index', {
-                SingerCollection: db
-            })
-        })
-        .catch(e => console.log(e))
 
+    const SingerList = await getSingerList();
+    res.send(SingerList)
 }
 
 module.exports = {
-    renderHome,
+    getSingerList,
 };
 

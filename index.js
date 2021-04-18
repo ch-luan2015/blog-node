@@ -12,8 +12,8 @@ app.use(bodyParser.raw());
 app.use(fileUpload())
 
 //View
-const { renderHome } = require("./controller/homeController")
-const { renderAbout } = require("./controller/aboutController")
+const { getSingerList } = require("./controller/homeController")
+const { getAvList, getUsList } = require("./controller/aboutController")
 const { createPost, postStore } = require("./controller/postController")
 const { renderRegister, userStore } = require("./controller/registerController")
 const { renderLogin, loginUser } = require("./controller/loginController")
@@ -44,7 +44,11 @@ app.use("*", (req, res, next) => {
 })
 
 //API
-app.get("/", renderHome);
+app.get("/", (req, res) => {
+    res.send("OK Home!")
+});
+
+app.get("/api/singerlist", getSingerList);
 
 
 //Post
@@ -60,7 +64,10 @@ app.post("/users/store", redirectIfAuthenticatedMiddleware, userStore);
 app.get("/login", redirectIfAuthenticatedMiddleware, renderLogin);
 app.post("/login", redirectIfAuthenticatedMiddleware, loginUser);
 app.get("/logout", logoutUser);
-app.get("/about", renderAbout);
+
+//About
+app.get("/api/avlist", getAvList);
+app.get("/api/uslist", getUsList);
 
 
 app.use((req, res) => res.render('notfound'));
