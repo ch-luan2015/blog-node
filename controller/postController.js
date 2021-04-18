@@ -15,22 +15,21 @@ const createPost = (req, res) => {
 
     if (req.session.userId) {
         var singer = { ...req.body, "author": "NCL", }
-        // if (req.files.image !== null || req.files.image !== undefined) {
-        //     let image = req.files.image;
-        //     image.mv(path.resolve(__dirname, "../public/upload", image.name), function (err) {
-        //         Singer.create({ ...singer, image: "/upload/" + image.name }, (e, singer) => {
-        //             res.send("Created Post have Image!")
-        //         })
-        //     })
-        // } else {
-        //     Singer.create(singer, (e, singer) => {
-        //         res.send("Created Post not Image!")
-        //     })
-        // };
 
-        Singer.create(singer, (e, singer) => {
-            res.send("Created Post not Image!")
-        })
+        if (req.files.image !== null || req.files.image !== undefined) {
+            let image = req.files.image;
+            image.mv(path.resolve(__dirname, "../public/upload", image.name), function (err) {
+                Singer.create({ ...singer, image: "/upload/" + image.name }, (e, singer) => {
+                    res.send("Created Post have Image!")
+                })
+            })
+        } else {
+            Singer.create(singer, (e, singer) => {
+                res.send("Created Post not Image!")
+            })
+        };
+
+
     } else res.send("You not login");
 
 }
