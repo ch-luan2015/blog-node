@@ -1,7 +1,5 @@
 const express = require('express')
 const app = new express()
-const ejs = require('ejs')
-app.set('view engine', 'ejs');
 const fileUpload = require('express-fileupload')
 const expressSession = require('express-session');
 const bodyParser = require("body-parser");
@@ -20,7 +18,6 @@ const { loginUser } = require("./controller/loginController")
 const { logoutUser } = require("./controller/logoutController")
 const { authMiddleware } = require("./middleware/authMiddleware")
 const { redirectIfAuthenticatedMiddleware } = require("./middleware/redirectIfAuthenticatedMiddleware")
-const Singer = require("./models/Singer")
 
 //Connect DataBase
 const mongoose = require('mongoose');
@@ -54,9 +51,9 @@ app.get("/api/singerlist", getSingerList);
 
 
 //Post
-app.get("/api/post/:id", getPostById)
-app.post("/api/create", createPost);
-//  authMiddleware,
+app.get("/api/post/:id", authMiddleware, getPostById)
+app.post("/api/create", authMiddleware, createPost);
+
 //User
 app.get("/api/register", redirectIfAuthenticatedMiddleware, renderRegister);
 app.post("/api/users/store", redirectIfAuthenticatedMiddleware, userStore);
