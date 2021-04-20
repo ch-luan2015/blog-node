@@ -68,5 +68,5 @@ app.get("/api/uslist", getUsList);
 
 app.use((req, res) => res.send('Error , check agagin'));
 
-app.listen(3000, () => console.log('OK. App listening on port 4000'))
+app.listen(3000, () => { });
 
