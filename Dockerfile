@@ -1,7 +1,7 @@
 
-FROM node:14-ubuntu
+FROM node:14-alpine
 
-WORKDIR /polka-server.js
+WORKDIR /polka-server
 
 COPY . .
 
