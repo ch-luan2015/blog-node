@@ -58,12 +58,9 @@ app.post("/api/create", authMiddleware, createPost);
 app.get("/api/register", redirectIfAuthenticatedMiddleware, renderRegister);
 app.post("/api/users/store", redirectIfAuthenticatedMiddleware, userStore);
 
-
 //Login
-// app.get("/api/login", redirectIfAuthenticatedMiddleware, renderLogin);
-app.post("/api/login", loginUser);
-app.post("/api/logout", logoutUser);
-//redirectIfAuthenticatedMiddleware,
+app.post("/api/login", redirectIfAuthenticatedMiddleware, loginUser);
+app.post("/api/logout", redirectIfAuthenticatedMiddleware, logoutUser);
 //List
 app.get("/api/avlist", getAvList);
 app.get("/api/uslist", getUsList);
