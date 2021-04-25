@@ -1,4 +1,11 @@
 node_modules
+
 ./.docker
+
 .docker
+
 .docker/*
+
+docker
+.docker/data/db
+./.docker/data/db
