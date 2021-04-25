@@ -3,7 +3,7 @@
   "name": "polka-server",
   "version": "5.0.8",
   "scripts": {
-    "start": "nodemon polka-server.js"
+    "start": "nodemon app.js"
   },
   "description": "Polka Server",
   "license": "MIT",

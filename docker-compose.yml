@@ -1,8 +1,21 @@
-version: "3.8"
+version: "3.4"
 
 services:
-  polka-server:
-    image: pos
+  app:
+    image: pos/node:v1
+    volumes: 
+      - ./:/app
     ports:
       - "3000:3000"
     restart: unless-stopped
+    depends_on:
+      - db
+  
+  db:
+    image: mongo:latest
+    volumes: 
+      - .docker/data/db:/data/db
+    ports:
+      - "27017:27017"
+    restart: unless-stopped
+
