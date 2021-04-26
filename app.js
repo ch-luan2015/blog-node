@@ -18,12 +18,14 @@ const { loginUser } = require("./controller/loginController")
 const { logoutUser } = require("./controller/logoutController")
 const { authMiddleware } = require("./middleware/authMiddleware")
 const { redirectIfAuthenticatedMiddleware } = require("./middleware/redirectIfAuthenticatedMiddleware")
+const Singers = require("./models/Singer")
 
 //Connect DataBase
 const mongoose = require('mongoose');
 const uri = 'mongodb://localhost/IdolDB';
 
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
+
 
 
 app.use(express.static('public'));
@@ -47,7 +49,12 @@ app.get("/", (req, res) => {
     res.send("OK Home!")
 });
 
-app.get("/api/singerlist", getSingerList);
+app.get("/api/singerlist", (req, res) => {
+    Singers.find({})
+        .then(result => console.log("reresults", result)).then((result) => res.send(result))
+        .catch(e => console.log(e))
+
+});
 
 
 //Post

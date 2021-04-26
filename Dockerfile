@@ -1,7 +1,6 @@
-
 FROM node:14-alpine
 
-WORKDIR /polkaapp
+WORKDIR /app
 
 COPY . .
 

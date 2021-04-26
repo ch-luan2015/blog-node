@@ -7,16 +7,16 @@ mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
 
 
-const getSingerList = async (req, res) => {
+const getSingerList = (req, res) => {
 
-    const getSingerList = async () => {
-        let SingerMongo = await Singer.find({});
-        return SingerMongo;
-    }
-
-
-    const SingerList = await getSingerList();
-    res.send(SingerList)
+    // const getSingerList = async () => {
+    //     let SingerMongo = await Singer.find({});
+    //     return SingerMongo;
+    // }
+    let SingerMongo = Singer.find({});
+    console.log("SingerMongo", SingerMongo)
+    // const SingerList = await getSingerList();
+    res.send(SingerMongo)
 }
 
 module.exports = {
