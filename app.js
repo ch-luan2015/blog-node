@@ -18,14 +18,12 @@ const { loginUser } = require("./controller/loginController")
 const { logoutUser } = require("./controller/logoutController")
 const { authMiddleware } = require("./middleware/authMiddleware")
 const { redirectIfAuthenticatedMiddleware } = require("./middleware/redirectIfAuthenticatedMiddleware")
-const Singers = require("./models/Singer")
+const Singer = require("./models/Singer")
 
 //Connect DataBase
-const mongoose = require('mongoose');
-const uri = 'mongodb://localhost/IdolDB';
+const mongoose = require("mongoose");
 
-mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
-
+mongoose.connect("mongodb://localhost:27017/idol_db", { useNewUrlParser: true });
 
 
 app.use(express.static('public'));
@@ -39,21 +37,24 @@ app.use(expressSession({
 }));
 
 global.loggedIn = null; // Khai bao kieu global
+
 app.use("*", (req, res, next) => {
     loggedIn = req.session.userId;
     next();
 })
-
 //API
 app.get("/", (req, res) => {
     res.send("OK Home!")
 });
 
 app.get("/api/singerlist", (req, res) => {
-    Singers.find({})
-        .then(result => console.log("reresults", result)).then((result) => res.send(result))
-        .catch(e => console.log(e))
 
+    Singer.find()
+        .then((data) => { return data.json() })
+        .then((data) => {
+            res.send(data)
+        })
+        .catch(error => { throw error })
 });
 
 

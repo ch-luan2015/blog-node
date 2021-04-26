@@ -5,12 +5,15 @@ services:
     image: pos/node:v1
     volumes: 
       - ./:/app
+      - ./public/images:/app/public/images
     ports:
       - "3000:3000"
-    restart: unless-stopped
     depends_on:
-      - db
-  
+       - db
+    restart: unless-stopped
+
+
+
   db:
     image: mongo:latest
     volumes: 
@@ -18,4 +21,3 @@ services:
     ports:
       - "27017:27017"
     restart: unless-stopped
-
