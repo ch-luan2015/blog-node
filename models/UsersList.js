@@ -25,7 +25,7 @@ UserSchema.pre('save', function (next) {
     })
 })
 //Tạo model cho kiểu : tên model và dạng types của nó
-const UsersList = mongoose.model("userlists", UserSchema);
+const UsersList = mongoose.model("users", UserSchema);
 
 //Giống export default Name;
 module.exports = UsersList;

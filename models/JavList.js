@@ -9,7 +9,7 @@ const JavListSchema = new Schema({
 })
 
 //Tạo model cho kiểu : tên model và dạng types của nó
-const JavList = mongoose.model("javlists", JavListSchema);
+const JavList = mongoose.model("javs", JavListSchema);
 
 //Giống export default Name;
 module.exports = JavList;

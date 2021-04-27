@@ -23,7 +23,9 @@ const Singer = require("./models/Singer")
 //Connect DataBase
 const mongoose = require("mongoose");
 
-mongoose.connect("mongodb://localhost:27017/idol_db", { useNewUrlParser: true });
+setTimeout(function () {
+    mongoose.connect('mongodb://db:27017/idol_db', { useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true });
+}, 60000);
 
 
 app.use(express.static('public'));
@@ -41,22 +43,13 @@ global.loggedIn = null; // Khai bao kieu global
 app.use("*", (req, res, next) => {
     loggedIn = req.session.userId;
     next();
-})
+});
 //API
 app.get("/", (req, res) => {
     res.send("OK Home!")
 });
 
-app.get("/api/singerlist", (req, res) => {
-
-    Singer.find()
-        .then((data) => { return data.json() })
-        .then((data) => {
-            res.send(data)
-        })
-        .catch(error => { throw error })
-});
-
+app.get("/api/singer", getSingerList);
 
 //Post
 app.get("/api/post/:id", authMiddleware, getPostById)
@@ -70,8 +63,8 @@ app.post("/api/users/store", redirectIfAuthenticatedMiddleware, userStore);
 app.post("/api/login", redirectIfAuthenticatedMiddleware, loginUser);
 app.post("/api/logout", redirectIfAuthenticatedMiddleware, logoutUser);
 //List
-app.get("/api/avlist", getAvList);
-app.get("/api/uslist", getUsList);
+app.get("/api/av", getAvList);
+app.get("/api/us", getUsList);
 
 
 app.use((req, res) => res.send('Error , check agagin'));
